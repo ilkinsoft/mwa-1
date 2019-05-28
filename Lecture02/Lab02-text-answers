@@ -1,0 +1,28 @@
+1.
+
+We use setTimeout to call a function after a delay has finished.
+
+We use setImmediate to call a function immediately but asynchronously.
+
+So what is the difference between setTimeout with 0 delay and setImmediate? setTimeout with 0 delay may be slower
+than setImmediate because js checks the timer at least once.
+
+2.
+
+We use setImmediate if we want to push the function behind I/O event callbacks. We use process.nextTick to push the function to the head of the event queue. So, it is all about priority.
+
+3.
+
+node.js core modules:
+
+fs	To handle the file system
+http	To make Node.js act as an HTTP server
+https	To make Node.js act as an HTTPS server.
+net	To create servers and clients
+os	Provides information about the operation system
+path	To handle file paths
+punycode	Deprecated. A character encoding scheme
+querystring	To handle URL query strings
+readline	To handle readable streams one line at the time
+stream	To handle streaming data
+string_decoder	To decode buffer objects into strings
