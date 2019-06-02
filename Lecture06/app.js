@@ -2,15 +2,15 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+
 var cors = require("cors");
+var fs = require('fs')
+var morgan = require('morgan')
 
 var gradesRoute = require('./routes/grades');
 
-var entity = [
-    {id: 1, name: "Asaad Saad", course: "CS572", grade: 95},
-    {id: 2, name: "Eren Ozturk", course: "CS572", grade: 100}
-];
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
 
 
 var app = express();
@@ -18,12 +18,24 @@ var app = express();
 
 app.use(cors());
 app.use(function (req, res, next) {
- console.log("middleware works")
+
+    console.log("middleware works")
 
     next();
+
+//     if(req.body.username==="user" && req.body.pass==="pass"){
+//  console.log("password correct")
+
+//         next();
+//     }else{
+//         console.log("password not correct")
+//     }
+
+
+    
 });
 
-app.use(logger('dev'));
+app.use(morgan('combined', { stream: accessLogStream }))
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
